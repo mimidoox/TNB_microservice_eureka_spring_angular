@@ -1,0 +1,23 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: SERVICE-AUTH
+  datasource:
+    url: jdbc:mysql://localhost/taxelog?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
