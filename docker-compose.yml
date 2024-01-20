@@ -1,0 +1,125 @@
+version: '3'
+
+services:
+
+  # MySQL AUTH
+  mysql-auth:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: service_auth
+    ports:
+      - "3306:3306"
+    networks:
+      - n3
+
+  # MySQL TNB
+  mysql-tnb:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: service_tnb
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+    networks:
+      - n3
+  # EUREKA SERVER
+  eureka-serverr:
+    build:
+      context: ./Serveur
+    ports:
+      - "8761:8761"
+    networks:
+      - n3
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-serverr:8761/eureka/
+
+  # EUREKA GATEWAY
+  eureka-gateway:
+    build:
+      context: ./Gateway
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka-serverr
+    networks:
+      - n3
+
+  # Angular Frontend
+  angular-frontend:
+    build:
+      context: ./tnbfront
+    ports:
+      - "4200:4200"
+    networks:
+      - n3
+    depends_on:
+      - eureka-gateway
+  # AUTH Service
+  tnbauth-service:
+    build:
+      context: ./tnbauth
+    ports:
+      - "8088:8088"
+    depends_on:
+      - mysql-auth
+      - eureka-serverr
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-auth:3306/service_auth
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password= --execute \"SHOW DATABASES;\""
+      interval: 5s
+      timeout: 2s
+      retries: 100
+    networks:
+      - n3
+
+  # TNB Service
+  tnb-service:
+    build:
+      context: ./tnb
+    ports:
+      - "8089:8089"
+    depends_on:
+      - mysql-tnb
+      - eureka-serverr
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-tnb:3306/service_tnb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password= --execute \"SHOW DATABASES;\""
+      interval: 5s
+      timeout: 2s
+      retries: 100
+    networks:
+      - n3
+
+  phpmyadmin-reservation:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql-auth
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ""
+    ports:
+      - "8082:80"
+    networks:
+      - n3
+
+  phpmyadmin-event:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql-tnb
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ""
+    ports:
+      - "8083:80"
+    networks:
+      - n3
+
+networks:
+  n3:
+    driver: bridge

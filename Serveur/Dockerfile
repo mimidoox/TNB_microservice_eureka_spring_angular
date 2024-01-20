@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM springcloud/eureka
 WORKDIR /App
 
 COPY /target/Serveur-0.0.1-SNAPSHOT.jar .

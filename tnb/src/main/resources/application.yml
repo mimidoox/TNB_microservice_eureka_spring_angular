@@ -5,7 +5,7 @@ spring:
   application:
     name: SERVICE-TNB
   datasource:
-    url: jdbc:mysql://localhost/taxe-terrain?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost/service_tnb?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password:
   jpa:

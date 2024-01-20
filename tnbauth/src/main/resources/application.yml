@@ -20,7 +20,7 @@ spring:
   application:
     name: SERVICE-AUTH
   datasource:
-    url: jdbc:mysql://localhost/taxelog?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost/service_auth?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password:
   jpa:
