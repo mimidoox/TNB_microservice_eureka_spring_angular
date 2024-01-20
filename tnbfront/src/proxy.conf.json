@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+      "target": "https://dev.mcc.api.xxx.com",
+      "secure": true,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }}

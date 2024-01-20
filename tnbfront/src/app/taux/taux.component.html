@@ -1,0 +1,148 @@
+<div class="container mt-3 text-center">
+  <style>
+    .custom-title {
+      font-family: 'Arial', sans-serif;
+      font-size: 30px;
+      font-weight: bold;
+      color: #333333;
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      padding-top: 50px;
+    }
+    .form-group {
+      margin-bottom: 20px; /* Adjust the margin as needed */
+    }
+
+    .form-control {
+      border: 2px solid #3498db; /* Change the border color */
+    }
+
+    .btn-primary {
+      background-color: #19478d; /* Change the button background color */
+      border-color: #6dd4d4; /* Change the button border color */
+      color: #fff; /* Change the button text color */
+    }
+
+    .custom-body {
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+    }
+
+    .professional-thead {
+      background-color: #6dd4d4;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .professional-th {
+      padding: 15px;
+      text-align: center;
+      background-color: #333333;
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  </style>
+
+  <h2 class="custom-title">Liste des taux</h2>
+
+  <div class="custom-body">
+    <table class="table">
+      <thead class="professional-thead">
+        <tr>
+          <th scope="col" class="professional-th">Category</th>
+          <th scope="col" class="professional-th">Montant</th>
+          <th scope="col" class="professional-th">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let taux of ltaux">
+          <td>{{ taux.category?.label }}</td>
+          <td>{{ taux.montant }}</td>
+
+
+          <td>
+            <button class="btn btn-primary" (click)="openUpdateTerrainModal(taux)">
+              <i class="fas fa-pencil"></i> Update
+            </button>
+            <button class="btn btn-danger" (click)="deleteTaux(taux?.id)"><i class="fas fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="container mt-3 text-center">
+      <button class="btn btn-primary" (click)="openAddTauxModal()">Add Taux</button>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showAddTauxModal, 'd-block': showAddTauxModal}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Taux</h5>
+          <button type="button" class="close" (click)="closeAddTauxModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (submit)="addTaux()">
+            <div class="form-group">
+              <label for="montant">Montant:</label>
+              <input type="text" class="form-control" id="montant" [(ngModel)]="newTaux.montant" name="montant" required>
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="category">Category:</label>
+              <select class="form-control" id="category" [(ngModel)]="newTaux.category" name="category" required>
+                <option *ngFor="let cat of categories" [ngValue]="cat">{{ cat.label }}</option>
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeAddTauxModal()">Close</button>
+              <button type="submit" class="btn btn-primary">Add Taux</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showUpdateTauxModal, 'd-block': showUpdateTauxModal}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Taux</h5>
+          <button type="button" class="close" (click)="closeUpdateTauxModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (submit)="onUpdateTaux()">
+            <div class="form-group">
+              <label for="updateMontant">Montant:</label>
+              <input type="text" class="form-control" id="updateMontant" [(ngModel)]="updateTaux.montant" name="updateMontant" required>
+            </div>
+
+            <div class="form-group">
+              <label for="updateCategory">Category:</label>
+              <select class="form-control" id="updateCategory" [(ngModel)]="updateTaux.category" name="updateCategory" required>
+                <option *ngFor="let cat of categories" [ngValue]="cat">{{ cat.label }}</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeUpdateTauxModal()">Close</button>
+              <button type="submit" class="btn btn-primary">Update Taux</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

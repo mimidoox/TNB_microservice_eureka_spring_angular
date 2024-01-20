@@ -1,0 +1,153 @@
+<div class="container mt-3 text-center">
+  <style>
+    .custom-title {
+      font-family: 'Arial', sans-serif;
+      font-size: 30px;
+      font-weight: bold;
+      color: #333333;
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      padding-top: 50px;
+    }
+    .form-group {
+      margin-bottom: 20px; /* Adjust the margin as needed */
+    }
+
+    .form-control {
+      border: 2px solid #3498db; /* Change the border color */
+    }
+
+    .btn-primary {
+      background-color: #19478d; /* Change the button background color */
+      border-color: #6dd4d4; /* Change the button border color */
+      color: #fff; /* Change the button text color */
+    }
+
+    .custom-body {
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+    }
+
+    .professional-thead {
+      background-color: #6dd4d4;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .professional-th {
+      padding: 15px;
+      text-align: center;
+      background-color: #333333;
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  </style>
+
+  <h2 class="custom-title">Listes des redevables</h2>
+
+  <div class="custom-body">
+
+
+    <table class="table">
+      <thead class="professional-thead">
+      <tr>
+        <th scope="col" class="professional-th">Prenom</th>
+        <th scope="col" class="professional-th">Nom</th>
+        <th scope="col" class="professional-th">Cin</th>
+        <th scope="col" class="professional-th">Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let redevable of redevables">
+        <td>{{ redevable.prenom }}</td>
+        <td>{{ redevable.nom }}</td>
+        <td>{{ redevable.cin }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="openUpdateRedevableModal(redevable)">
+            <i class="fas fa-pencil"></i> Update
+          </button>
+          <button class="btn btn-danger" (click)="deleteRedevable(redevable.id)">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary" (click)="openAddRedevableModal()">
+      <i class="fas fa-plus"></i> Add Redevable
+    </button>
+    <!-- Add Redevable Modal -->
+    <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showAddRedevableModal, 'd-block': showAddRedevableModal}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Redevable</h5>
+            <button type="button" class="close" (click)="closeAddRedevableModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (submit)="addRedevable()">
+              <div class="form-group">
+                <label for="addPrenom">Prenom:</label>
+                <input type="text" class="form-control" id="addPrenom" [(ngModel)]="newRedevable.prenom" name="addPrenom" required>
+              </div>
+              <div class="form-group">
+                <label for="addNom">Nom:</label>
+                <input type="text" class="form-control" id="addNom" [(ngModel)]="newRedevable.nom" name="addNom" required>
+              </div>
+              <div class="form-group">
+                <label for="addCin">Cin:</label>
+                <input type="text" class="form-control" id="addCin" [(ngModel)]="newRedevable.cin" name="addCin" required>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="openAddRedevableModal()">Close</button>
+                <button type="submit" class="btn btn-primary">Add Redevable</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Redevable Modal -->
+    <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showUpdateRedevableModal, 'd-block': showUpdateRedevableModal}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Redevable</h5>
+            <button type="button" class="close" (click)="closeUpdateRedevableModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (submit)="updateRedevable()">
+              <div class="form-group">
+                <label for="updatePrenom">Prenom:</label>
+                <input type="text" class="form-control" id="updatePrenom" [(ngModel)]="selectedRedevable.prenom" name="updatePrenom" required>
+              </div>
+              <div class="form-group">
+                <label for="updateNom">Nom:</label>
+                <input type="text" class="form-control" id="updateNom" [(ngModel)]="selectedRedevable.nom" name="updateNom" required>
+              </div>
+              <div class="form-group">
+                <label for="updateCin">Cin:</label>
+                <input type="text" class="form-control" id="updateCin" [(ngModel)]="selectedRedevable.cin" name="updateCin" required>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeUpdateRedevableModal()">Close</button>
+                <button type="submit" class="btn btn-primary">Update Redevable</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <title>tnb</title>
+  <style>
+    body {
+      padding-top: 80px;
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+    }
+
+    .navbar {
+      border-bottom: 2px solid #6dd4d4;
+      background-color: #333;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      color: #6dd4d4;
+      font-size: 26px;
+    }
+
+    .navbar-toggler {
+      border: none;
+      outline: none;
+    }
+
+    .navbar-toggler-icon {
+      background-color: #6dd4d4;
+    }
+
+    .navbar-toggler-icon:focus {
+      box-shadow: none;
+    }
+
+    .navbar-nav {
+      mx-auto: auto;
+    }
+
+    .navbar-nav .nav-link {
+      color: #f2f2f2;
+      font-weight: 500;
+      font-size: 18px;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #6dd4d4;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #6dd4d4;
+    }
+
+    .navbar-nav.ml-auto .nav-link {
+      color: #6dd4d4;
+      cursor: pointer;
+    }
+
+    .navbar-nav.ml-auto .nav-link:hover {
+      color: #6dd4d4;
+    }
+
+    .icon {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">TNB Maroc</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/terrain">Terrain</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/redevable">Redevable</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/category">Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/taux">Taux</a>
+        </li>
+      </ul>
+    </div>
+    <div class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" (click)="onLogout()">
+          <i class="fas fa-sign-out-alt icon"></i> Logout
+        </a>
+      </li>
+    </div>
+  </div>
+</nav>
+
+</body>
+
+</html>

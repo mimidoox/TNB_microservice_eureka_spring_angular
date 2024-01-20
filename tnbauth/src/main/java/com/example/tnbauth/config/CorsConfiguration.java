@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfiguration {
+    /*
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -13,12 +14,13 @@ public class CorsConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("Access-Control-Allow-Origin","*")
+                        .allowedHeaders("Access-Control-Allow-Origin", "*")
                         .allowedOrigins(
-
-                "http://localhost:3000","https://https://stage-front.vercel.app//");
-
+                                "http://localhost:4200",
+                                "http://localhost:52479/",
+                                "http://127.0.0.1:4200/",
+                                "http://localhost:8080/");
             }
         };
-    }
+    }*/
 }

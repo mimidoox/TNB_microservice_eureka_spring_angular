@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RedevableService {
@@ -19,6 +20,11 @@ public class RedevableService {
 		redevableRepository.save(entity);
 	}
 
+	public Redevable findById(int id){
+
+		return redevableRepository.findById(id);
+
+	}
 	public List<Redevable> findAll() {
 		
 		return redevableRepository.findAll();
@@ -32,6 +38,7 @@ public class RedevableService {
 	public Redevable findByCin(String cin) {
 		return redevableRepository.findByCin(cin);
 	}
+
 
 	
 	

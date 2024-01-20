@@ -2,11 +2,27 @@ server:
   port: 8888
 
 spring:
+
+  main:
+    web-application-type: reactive
   application:
     name: gateway
   cloud:
-    discovery:
-      enabled: true
+      gateway:
+        globalcors:
+          cors-configurations:
+            '[/**]':
+              allowedOrigins:
+                - "http://localhost:4200/"
+              allowedHeaders: "*"
+              allowedMethods:
+                - "GET"
+                - "POST"
+                - "OPTIONS"
+                - "DELETE"
+                - "PUT"
+              allowCredentials: true
+
 
 eureka:
   instance:

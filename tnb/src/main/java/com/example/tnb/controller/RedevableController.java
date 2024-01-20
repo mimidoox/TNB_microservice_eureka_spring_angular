@@ -1,12 +1,14 @@
 package com.example.tnb.controller;
 
 import com.example.tnb.entity.Redevable;
+import com.example.tnb.entity.Terrain;
 import com.example.tnb.service.RedevableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin("*")
+import java.util.Optional;
+
 @RequestMapping("/api/redevable")
 @RestController
 public class RedevableController {
@@ -32,7 +34,15 @@ public class RedevableController {
 	public Redevable findByCin(@PathVariable String cin) {
 		return redevableService.findByCin(cin);
 	}
-	
-	
+
+	@PutMapping("/update/{id}")
+	public void update(@RequestBody Redevable entity,@PathVariable int id) {
+
+
+
+			 redevableService.save(entity);
+
+
+	}
 
 }

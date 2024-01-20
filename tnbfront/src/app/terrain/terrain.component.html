@@ -1,0 +1,180 @@
+<div class="container mt-3 text-center">
+  <style>
+    .custom-title {
+      font-family: 'Arial', sans-serif;
+      font-size: 30px;
+      font-weight: bold;
+      color: #333333;
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      padding-top: 50px;
+    }
+    .form-group {
+      margin-bottom: 20px; /* Adjust the margin as needed */
+    }
+
+    .form-control {
+      border: 2px solid #3498db; /* Change the border color */
+    }
+
+    .btn-primary {
+      background-color: #19478d; /* Change the button background color */
+      border-color: #6dd4d4; /* Change the button border color */
+      color: #fff; /* Change the button text color */
+    }
+
+    .custom-body {
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+    }
+
+    .professional-thead {
+      background-color: #6dd4d4;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .professional-th {
+      padding: 15px;
+      text-align: center;
+      background-color: #333333;
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  </style>
+
+  <h2 class="custom-title">Liste des terrains</h2>
+
+  <div class="custom-body">
+    <table class="table">
+      <thead class="professional-thead">
+        <tr>
+          <th scope="col" class="professional-th">Nom</th>
+          <th scope="col" class="professional-th">Surface</th>
+          <th scope="col" class="professional-th">Description</th>
+          <th scope="col" class="professional-th">Redevable</th>
+          <th scope="col" class="professional-th">Category</th>
+          <th scope="col" class="professional-th">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let terrain of terrains">
+          <td>{{ terrain.nom }}</td>
+          <td>{{ terrain.surface }}</td>
+          <td>{{ terrain.description }}</td>
+          <td>{{ terrain.redevable?.prenom }}</td>
+          <td>{{ terrain.category?.label }}</td>
+
+          <td>
+            <button class="btn btn-primary" (click)="openUpdateTerrainModal(terrain)">
+              <i class="fas fa-pencil"></i> Update
+            </button>
+            <button class="btn btn-danger" (click)="deleteTerrain(terrain)"><i class="fas fa-trash"></i> Delete</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="container mt-3 text-center">
+      <button class="btn btn-primary" (click)="openAddTerrainModal()">Add Terrain</button>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showAddTerrainModal, 'd-block': showAddTerrainModal}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Terrain</h5>
+          <button type="button" class="close" (click)="closeAddTerrainModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (submit)="addTerrain()">
+            <div class="form-group">
+              <label for="nom">Nom:</label>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="newTerrain.nom" name="nom" required>
+            </div>
+            <div class="form-group">
+              <label for="surface">Surface:</label>
+              <input type="text" class="form-control" id="surface" [(ngModel)]="newTerrain.surface" name="surface" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" [(ngModel)]="newTerrain.description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="category">Category:</label>
+              <select class="form-control" id="category" [(ngModel)]="newTerrain.category" name="category" required>
+                <option *ngFor="let category of categories" [ngValue]="category">{{ category.label }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="redevable">Redevable:</label>
+              <select class="form-control" id="redevable" [(ngModel)]="newTerrain.redevable" name="redevable" required>
+                <option *ngFor="let redevable of redevables" [ngValue]="redevable">{{ redevable.nom }} {{ redevable.prenom }}</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeAddTerrainModal()">Close</button>
+              <button type="submit" class="btn btn-primary">Add Terrain</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showUpdateTerrainModal, 'd-block': showUpdateTerrainModal}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Update Terrain</h5>
+              <button type="button" class="close" (click)="closeUpdateTerrainModal()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form (submit)="updateTerrain()">
+                <div class="form-group">
+                  <label for="nom">Nom:</label>
+                  <input type="text" class="form-control" id="terrain.nom" [(ngModel)]="updatingTerrain.nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                  <label for="surface">Surface:</label>
+                  <input type="text" class="form-control" id="terrain.surface" [(ngModel)]="updatingTerrain.surface" name="surface" required>
+                </div>
+                <div class="form-group">
+                  <label for="description">Description:</label>
+                  <textarea class="form-control" id="terrain.description" [(ngModel)]="updatingTerrain.description" name="description" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="updateCategory">Update Category:</label>
+                  <select class="form-control" id="updateCategory" [(ngModel)]="updatingTerrain.category" name="updateCategory" required>
+                    <option *ngFor="let category of categories" [ngValue]="category">{{ category.label }}</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="updateRedevable">Update Redevable:</label>
+                  <select class="form-control" id="updateRedevable" [(ngModel)]="updatingTerrain.redevable" name="updateRedevable" required>
+                    <option *ngFor="let redevable of redevables" [ngValue]="redevable">{{ redevable.nom }} {{ redevable.prenom }}</option>
+                  </select>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closeUpdateTerrainModal()">Close</button>
+                  <button type="submit" class="btn btn-primary">Update Terrain</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>

@@ -17,9 +17,7 @@ public class Redevable  implements Serializable {
 	private String nom;
 	private String prenom;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "redevable", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonIgnore
-	private List<Terrain> terrain;
+
 
 
 	public int getId() {
@@ -46,13 +44,7 @@ public class Redevable  implements Serializable {
 		this.prenom = prenom;
 	}
 
-	public List<Terrain> getTerain() {
-		return terrain;
-	}
 
-	public void setTerain(List<Terrain> terain) {
-		this.terrain = terain;
-	}
 
 	public String getCin() {
 		return cin;

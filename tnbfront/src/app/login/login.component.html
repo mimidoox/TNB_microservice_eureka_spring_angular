@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@angular/material@13.0.0-pre.1/prebuilt-themes/indigo-pink.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Jost', sans-serif;
+      background: linear-gradient(to bottom, #1a1a1a, #262626, #333333);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .main {
+      display: flex;
+      width: 80%;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 5px 20px 50px #000;
+    }
+
+    .form-container {
+      width: 50%;
+      padding: 2em;
+      background: #4fb7ae;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-container:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom right, #e890e2, #dc6dd4);
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    .form-container label {
+      color: #fff;
+      font-size: 2.3em;
+      margin: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.5s ease-in-out;
+    }
+
+    .form-container input {
+      width: 100%;
+      height: 40px;
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+    }
+
+    .form-container button {
+      width: 100%;
+      height: 50px;
+      margin: 10px 0;
+      color: #fff;
+      background: #333;
+      font-size: 1.2em;
+      font-weight: bold;
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      transition: 0.2s ease-in;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background:#6dd4d4;
+    }
+
+    .error-message,
+    .green-message {
+      color: white;
+      margin-top: 5px;
+      margin-left: 10px;
+      text-align: center;
+    }
+
+    .login-form {
+      padding-right: 2em;
+      background: #333;
+    }
+
+    .login-form:before {
+      background: linear-gradient(to bottom right, #6dd4d4, #6d9ad4);
+    }
+  </style>
+</head>
+
+<body>
+<div class="main">
+  <div class="form-container signup">
+    <label for="chk" aria-hidden="true">Sign up</label>
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+      <input class="in" type="text" name="firstName" placeholder="First Name" formControlName="firstName" required>
+      <input class="in" type="text" name="lastName" placeholder="Last Name" formControlName="lastName" required>
+      <input class="in" type="email" name="email" placeholder="Email" formControlName="email" required>
+      <input class="in" type="password" name="password" placeholder="Password" formControlName="password" required>
+      <button type="submit">Sign up</button>
+    </form>
+    <div *ngIf="!isValid" class="error-message">
+      Bad credentials.
+    </div>
+    <div *ngIf="successRegistre" class="green-message">
+      User Registered.
+    </div>
+  </div>
+
+  <div class="form-container login login-form">
+    <label for="chk" aria-hidden="true">Login</label>
+    <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+      <input class="in" type="text" name="username" placeholder="Username" formControlName="username" required>
+      <input class="in" type="password" name="password" placeholder="Password" formControlName="password" required>
+      <button type="submit">Login</button>
+    </form>
+    <div *ngIf="!isValid" class="error-message">
+      Bad credentials.
+    </div>
+    <div *ngIf="successRegistre" class="green-message">
+      You are logged in.
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

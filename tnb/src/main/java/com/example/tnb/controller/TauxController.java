@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin("*")
+
 //restapi
 @RestController
 @RequestMapping("/api/taux")
@@ -39,6 +39,11 @@ public class TauxController {
 	@DeleteMapping("/delete/{id}")
 	public void deleteById(@PathVariable Integer id) {
 		tauxService.deleteById(id);
+	}
+
+	@PutMapping("/update/{id}")
+	public void update(@RequestBody Taux entity) {
+		tauxService.save(entity);
 	}
 
 }

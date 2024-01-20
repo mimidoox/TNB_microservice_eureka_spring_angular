@@ -1,0 +1,139 @@
+<div class="container mt-3 text-center">
+  <style>
+    .custom-title {
+        font-family: 'Arial', sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #333333;
+        text-align: center;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        padding-top: 50px;
+    }
+    .form-group {
+      margin-bottom: 20px; /* Adjust the margin as needed */
+    }
+
+    .form-control {
+      border: 2px solid #3498db; /* Change the border color */
+    }
+
+    .btn-primary {
+      background-color: #19478d; /* Change the button background color */
+      border-color: #6dd4d4; /* Change the button border color */
+      color: #fff; /* Change the button text color */
+    }
+
+    .custom-body {
+        font-family: 'Arial', sans-serif;
+        font-size: 16px;
+        color: #333;
+        text-align: center;
+    }
+
+    .professional-thead {
+        background-color: #6dd4d4;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .professional-th {
+        padding: 15px;
+        text-align: center;
+        background-color: #333333;
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: bold;
+    }
+  </style>
+
+  <h2 class="custom-title">Listes des Categories</h2>
+
+  <div class="custom-body">
+    <table class="table">
+      <thead class="professional-thead">
+        <tr>
+          <th scope="col" class="professional-th">Label</th>
+          <th scope="col" class="professional-th">Description</th>
+          <th scope="col" class="professional-th">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>{{ category.label }}</td>
+          <td>{{ category.description }}</td>
+
+          <td>
+            <button class="btn btn-primary" (click)="openUpdateCategoryModal(category)">
+              <i class="fas fa-pencil"></i> Update</button>
+            <button class="btn btn-danger" (click)="deleteCategory(category?.id)" ><i class="fas fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="container mt-3 text-center">
+      <button class="btn btn-primary" (click)="openAddCategoryModal()">Add Category</button>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showAddCategoryModal, 'd-block': showAddCategoryModal}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Category</h5>
+          <button type="button" class="close" (click)="closeAddCategoryModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (submit)="addCategory()">
+            <div class="form-group">
+              <label for="nom">Label:</label>
+              <input type="text" class="form-control" id="nom" [(ngModel)]="newCategory.label" name="nom" required>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" [(ngModel)]="newCategory.description" name="description" required></textarea>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="closeAddCategoryModal()">Close</button>
+              <button type="submit" class="btn btn-primary">Add Category</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showUpdateCategoryModal, 'd-block': showUpdateCategoryModal}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Category</h5>
+          <button type="button" class="close" (click)="closeUpdateCategoryModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (submit)="updateCategory()">
+            <div class="form-group">
+              <label for="updateNom">Label:</label>
+              <input type="text" class="form-control" id="updateNom" [(ngModel)]="selectedCategory.label" name="updateNom" required>
+            </div>
+            <div class="form-group">
+              <label for="updateDescription">Description:</label>
+              <textarea class="form-control" id="updateDescription" [(ngModel)]="selectedCategory.description" name="updateDescription" required></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeUpdateCategoryModal()">Close</button>
+              <button type="submit" class="btn btn-primary">Update Category</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

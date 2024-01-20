@@ -26,25 +26,36 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf()
-                .disable()
-                .authorizeHttpRequests()
-                .requestMatchers("**")
-                .permitAll()
-                .anyRequest()
-                .permitAll()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuth, UsernamePasswordAuthenticationFilter.class)
-                .logout()
-                .logoutUrl("/api/auth/logout")
-                .addLogoutHandler(logoutHandler)
-                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-        ;
+        configureSecurity(http);
+        configureSessionManagement(http);
+        configureAuthentication(http);
+        configureLogout(http);
+
         return http.build();
     }
+
+    private void configureSecurity(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("**").permitAll()
+                .anyRequest().permitAll();
+    }
+
+    private void configureSessionManagement(HttpSecurity http) throws Exception {
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    private void configureAuthentication(HttpSecurity http) {
+        http.authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuth, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    private void configureLogout(HttpSecurity http) throws Exception {
+        http.logout()
+                .logoutUrl("/api/auth/logout")
+                .addLogoutHandler(logoutHandler)
+                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+    }
+
 }

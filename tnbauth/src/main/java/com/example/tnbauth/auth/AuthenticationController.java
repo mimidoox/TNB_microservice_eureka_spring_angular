@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+
 public class AuthenticationController {
 
     @Autowired
@@ -31,11 +31,14 @@ public class AuthenticationController {
 
     private static final Logger logger = Logger.getLogger(AuthenticationController.class.getName());
 
+
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
         logger.info(request.getEmail());
         return ResponseEntity.ok(service.register(request));
     }
+
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
@@ -43,10 +46,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
+
     @PostMapping("/refresh-token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         service.refreshToken(request, response);
     }
+
 
     @PostMapping("/sign-in-with-token")
     public ResponseEntity<User> sign_in_using_token(@RequestBody TokenVo token) {

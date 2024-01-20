@@ -17,7 +17,6 @@ public class Terrain  implements Serializable {
 	private double surface;
 
 	@ManyToOne
-	@JsonIgnore
 	private Redevable redevable;
 
 	@ManyToOne
